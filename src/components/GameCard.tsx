@@ -1,12 +1,20 @@
 import {Game} from "../models/Game.tsx";
 import {FC} from "react";
-import {GameTitle, StyledGameCard} from "./GameCard.style.tsx";
+import {GameTitle, PlayersCount, StyledGameCard} from "./GameCard.style.tsx";
+import {UsersRound} from "lucide-react";
 
-const GameCard: FC<Game> = ({title, playersCount}: Game) => {
+interface GameCardProps {
+    game: Game;
+    size: "medium" | "large";
+    onClick?: () => void;
+    className?: string;
+}
+
+const GameCard: FC<GameCardProps> = ({game, size, onClick, className}: GameCardProps) => {
     return (
-      <StyledGameCard>
-          <p>{playersCount?.toString() ?? "0"}</p>
-          <GameTitle>{title ?? "Sem título"}</GameTitle>
+      <StyledGameCard cover={game.cover} size={size} onClick={onClick} className={className}>
+          <PlayersCount><UsersRound size={15}/> {game.playersCount?.toString() ?? "0"}</PlayersCount>
+          <GameTitle>{game.title ?? "Sem título"}</GameTitle>
       </StyledGameCard>
     );
 }

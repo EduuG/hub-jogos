@@ -1,5 +1,5 @@
-import {createGlobalStyle} from "styled-components";
-import {theme} from "./Theme.tsx";
+import { createGlobalStyle } from "styled-components";
+import { theme } from "./Theme.tsx";
 
 export const GlobalStyle = createGlobalStyle`
     * {
@@ -9,8 +9,8 @@ export const GlobalStyle = createGlobalStyle`
     }
     
     body {
-        background-color: ${({theme}) => theme.colors.background.primary};
-        color: ${({ theme }) => theme.colors.text.primary};
+        background-color: ${theme.colors.background.primary};
+        color: ${theme.colors.text.primary};
         font-family: 'Inter', sans-serif;
     }
 `

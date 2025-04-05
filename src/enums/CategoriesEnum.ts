@@ -1,4 +1,4 @@
-export enum GameCategories {
+export enum CategoriesEnum {
     Acao = 1,
     Plataforma,
     RPG,

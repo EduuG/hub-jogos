@@ -1,6 +1,8 @@
+import {GameCover} from "./GameCover.tsx";
+
 export interface Game {
     title: string;
     playersCount: number;
-    cover?: string
+    cover: GameCover;
     categoryId: number;
 }
