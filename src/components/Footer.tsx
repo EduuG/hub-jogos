@@ -50,7 +50,7 @@ const Footer = () => {
 
                 <RatingInfo>
                     <div>
-                        <img src="/images/rating-12.svg" alt="Classificação Etária"/>
+                        <img src="images/rating-12.svg" alt="Classificação Etária"/>
                     </div>
 
                     <div>

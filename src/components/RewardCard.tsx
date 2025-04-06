@@ -10,7 +10,7 @@ const RewardCard = () => {
     <StyledRewardCard>
       <div style={{ display: "flex", alignItems: "center", paddingInline: "60px", gap: "30px", width: "550px" }}>
         {!useIsMobileCheck(472) &&
-          <img src={"/images/RewardCoin.png"} alt={"Imagem de uma moeda ilustrativa"} style={{ width: "150px", height: "auto" }}/>
+          <img src={"images/RewardCoin.png"} alt={"Imagem de uma moeda ilustrativa"} style={{ width: "150px", height: "auto" }}/>
         }
 
         <div style={{ display: "flex", flexDirection: "column", gap: "20px", minWidth: "200px", flexShrink: 1 }}>
@@ -24,7 +24,7 @@ const RewardCard = () => {
       </div>
 
       {!useIsMobileCheck(1100) &&
-        <img src={"/images/RewardImage.png"} alt={"Exemplo de jogos"} style={{ width: "100%", height: "auto", maxWidth: "850px", minWidth: "200px"}} />
+        <img src={"images/RewardImage.png"} alt={"Exemplo de jogos"} style={{ width: "100%", height: "auto", maxWidth: "850px", minWidth: "200px"}} />
       }
     </StyledRewardCard>
   )

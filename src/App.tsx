@@ -19,11 +19,11 @@ function App() {
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
   useEffect(() => {
-    fetch("/data/games.json")
+    fetch("data/games.json")
       .then((response) => response.json())
       .then((data) => setGames(data.games));
 
-    fetch("/data/categories.json")
+    fetch("data/categories.json")
       .then((response) => response.json())
       .then((data) => setCategories(data.categories));
   }, []);
