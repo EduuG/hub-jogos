@@ -1,4 +1,4 @@
-export interface GameCover {
+export interface GameCoverModel {
     medium: string;
     large: string;
 }

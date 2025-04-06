@@ -1,43 +1,70 @@
-import { Game } from "../models/Game.tsx";
+import { GameModel } from "../models/GameModel.ts";
 import GameCard from "./GameCard.tsx";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { FeaturedGameList, FeaturedWrapper, GameInfo, StyledFeatured } from "./Featured.style.tsx";
 import { StyledButton } from "./Button.style.tsx";
 import { Dot, Heart, Play, Sparkles, Tags } from "lucide-react";
+import { useMediaQuery } from "react-responsive";
+import { getSelectedGameIndex } from "../utils/getSelectedGameIndex.ts";
+import { CategoryModel } from "../models/CategoryModel.ts";
 
 interface FeaturedProps {
-    games: Game[];
-    categories: string[];
+    games: GameModel[];
+    categories: CategoryModel[];
 }
 
 const Featured: FC<FeaturedProps> = ({ games, categories }: FeaturedProps) => {
-    const [selectedGame, setSelectedGame] = useState<Game | null>(null);
+    const [selectedGame, setSelectedGame] = useState<GameModel | null>(null);
+    const [categoriesLoaded, setCategoriesLoaded] = useState<boolean>(false);
+    const gameListRef = useRef<HTMLUListElement>(null);
 
-    const onGameCardClick = (game: Game) => {
+    const isMediumScreenSize = useMediaQuery({ query: '(max-width: 1366px)' });
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
+    const onGameCardClick = (game: GameModel) => {
         setSelectedGame(game);
     };
 
     useEffect(() => {
+        if (categories.length > 0) {
+            setCategoriesLoaded(true);
+        }
+
         if (games.length > 0) {
             setSelectedGame((prevSelectedGame) => {
                 return prevSelectedGame || games[0];
             });
         }
-    }, [games]);
+    }, [games, categories]);
 
-    if (!selectedGame) return null;
+    useEffect(() => {
+        if (selectedGame && gameListRef.current && isMediumScreenSize) {
+            const selectedIndex = getSelectedGameIndex(games, selectedGame);
+            const selectedCard = gameListRef.current.children[selectedIndex] as HTMLElement;
+            if (selectedCard) {
+                const offset = selectedCard.offsetLeft - (gameListRef.current.offsetWidth / 2) + (selectedCard.offsetWidth / 2);
+                gameListRef.current.scrollTo({
+                    left: offset,
+                    behavior: 'smooth',
+                });
+            }
+        }
+    }, [selectedGame, games, isMediumScreenSize]);
+
+    if (!selectedGame || !categoriesLoaded) return null;
 
     return (
-        <StyledFeatured background={selectedGame.cover.large}>
+        <StyledFeatured background={isMobile ? selectedGame.cover.medium : selectedGame.cover.large} isMobile={isMediumScreenSize}>
             <FeaturedWrapper>
-                <FeaturedGameList>
-                    {games.map((game, index) => (
+                <FeaturedGameList ref={gameListRef} isMobile={isMediumScreenSize}>
+                    {games.map((game) => (
                         <GameCard
-                            key={index}
+                            key={game.id}
                             game={game}
-                            size={"large"}
+                            coverSize={isMobile ? "medium" : "large"}
                             onClick={() => onGameCardClick(game)}
-                            className={selectedGame.title === game.title ? "active" : ""}
+                            className={selectedGame.id === game.id ? "active" : ""}
+                            categories={categories}
                         />
                     ))}
                 </FeaturedGameList>
@@ -47,15 +74,19 @@ const Featured: FC<FeaturedProps> = ({ games, categories }: FeaturedProps) => {
                         <h1>{selectedGame.title}</h1>
                     </div>
 
-                    <div style={{ display: "flex", gap: "10px" }}>
-                        <h4><Tags /> {categories[selectedGame.categoryId]}</h4>
+                    <div style={{ display: "flex" }}>
+                        <h4><Tags size={14} /> {categories.find((category) => category.id.toString() === selectedGame.categoryId.toString())?.name || "N/A"}</h4>
                         <Dot />
-                        <h4><Sparkles /> Novidade</h4>
+                        <h4><Sparkles size={14} /> Novidade</h4>
                     </div>
 
-                    <div style={{ display: "flex", gap: "80px" }}>
-                        <StyledButton color={"secondary"}>Adicionar aos favoritos <Heart /></StyledButton>
-                        <StyledButton>Jogar agora <Play /></StyledButton>
+                    <div style={{ marginTop: "30px" }}>
+                        <p>Possível descrição do jogo</p>
+                    </div>
+
+                    <div style={{ display: "flex", justifyContent: "space-between", marginTop: "70px" }}>
+                        <StyledButton color={"secondary"}>{!isMediumScreenSize && `Adicionar aos favoritos`} <Heart /></StyledButton>
+                        <StyledButton>{!isMediumScreenSize && `Jogar agora`} <Play /></StyledButton>
                     </div>
                 </GameInfo>
             </FeaturedWrapper>

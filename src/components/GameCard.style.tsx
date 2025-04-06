@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { theme } from "../Theme.tsx";
-import {getGameCover} from "../utils/getGameCover.ts";
-import {GameCover} from "../models/GameCover.tsx";
+import { getGameCover } from "../utils/getGameCover.ts";
+import { GameCoverModel } from "../models/GameCoverModel.ts";
 
 export const GameTitle = styled.span`
     display: block;
@@ -14,18 +14,56 @@ export const GameTitle = styled.span`
     transition: color 350ms ease;
 `;
 
-export const StyledGameCard = styled.li<{ cover: GameCover, size: "medium" | "large" }>`
+export const GameDesc = styled.span`
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: ${theme.colors.text.secondary};
+    font-size: 1rem;
+`;
+
+export const PlayButton = styled.button`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: ${theme.palette.primary}cc;
+    border-radius: 50%;
+    border-width: 0;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+
+    svg {
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+`;
+
+export const StyledGameCard = styled.li<{ cover: GameCoverModel, size: "medium" | "large" }>`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 15px;
     width: 120px;
     height: 50px;
-    background: 
-            linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 40%, rgba(40, 40, 40, 1) 100%),
-            ${({ cover, size }) => getGameCover(cover, size)};
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 40%, rgba(40, 40, 40, 1) 100%),
+    ${({cover, size}) => getGameCover(cover, size)};
+    background-position: center;
     background-size: cover;
-    border-radius: 15px;
+    border-radius: ${theme.border.radius};
     color: ${theme.colors.text.primary};
     transition-property: box-shadow, transform, color;
     transition-duration: 350ms;
@@ -42,7 +80,7 @@ export const StyledGameCard = styled.li<{ cover: GameCover, size: "medium" | "la
         right: 0;
         bottom: 0;
         background: transparent;
-        border-radius: 15px;
+        border-radius: ${theme.border.radius};
         transition: background 350ms ease;
         z-index: -1;
     }
@@ -60,7 +98,14 @@ export const StyledGameCard = styled.li<{ cover: GameCover, size: "medium" | "la
             background: rgba(0, 0, 0, 0.3);
         }
     }
-`
+
+    &:hover {
+        ${PlayButton} {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+`;
 
 export const PlayersCount = styled.span`
     display: flex;
@@ -68,10 +113,11 @@ export const PlayersCount = styled.span`
     align-items: center;
     gap: 3px;
     background-color: ${theme.colors.background.secondary}aa;
+    backdrop-filter: blur(3px);
     width: fit-content;
     height: 25px;
     border-radius: 60px;
     padding-inline: 10px;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: bold;
-`
+`;

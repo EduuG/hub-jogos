@@ -1,19 +1,19 @@
 {
-  "categories": {
-    "1": "Ação",
-    "2": "Plataforma",
-    "3": "RPG",
-    "4": "FPS",
-    "5": "Quebra-cabeça",
-    "6": "MOBA",
-    "7": "Battle Royale",
-    "8": "Party",
-    "9": "Arcade",
-    "10": "Terror",
-    "11": "Simulação",
-    "12": "Esportes",
-    "13": "Corrida",
-    "14": "Cartas",
-    "15": "Estratégia"
-  }
+  "categories": [
+    {"id": "1", "name": "Ação"},
+    {"id": "2", "name": "Plataforma"},
+    {"id": "3", "name": "RPG"},
+    {"id": "4", "name": "FPS"},
+    {"id": "5", "name": "Quebra-cabeça"},
+    {"id": "6", "name": "MOBA"},
+    {"id": "7", "name": "Battle Royale"},
+    {"id": "8", "name": "Party"},
+    {"id": "9", "name": "Arcade"},
+    {"id": "10", "name": "Terror"},
+    {"id": "11", "name": "Simulação"},
+    {"id": "12", "name": "Esportes"},
+    {"id": "13", "name": "Corrida"},
+    {"id": "14", "name": "Cartas"},
+    {"id": "15", "name": "Estratégia"}
+  ]
 }

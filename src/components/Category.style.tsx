@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { StyledGameCard } from "./GameCard.style.tsx";
-import {theme} from "../Theme.tsx";
+import { theme } from "../Theme.tsx";
 
 export const StyledCategory = styled.section<{ background: string }>`
     position: relative;
@@ -26,8 +25,8 @@ export const StyledCategory = styled.section<{ background: string }>`
         content: "";
         position: absolute;
         inset: 0;
-        backdrop-filter: blur(3px);
         background-color: ${theme.colors.background.primary};
+        backdrop-filter: blur(3px);
         opacity: 0.8;
         z-index: 1;
     }
@@ -36,17 +35,13 @@ export const StyledCategory = styled.section<{ background: string }>`
         position: relative;
         z-index: 2;
     }
-
-    ${StyledGameCard} {
-        height: 300px;
-    }
 `;
 
 export const CategoryHeader = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-inline: 50px;
+    padding-inline: 120px;
 
     & a {
         display: flex;
@@ -56,10 +51,15 @@ export const CategoryHeader = styled.div`
         color: ${theme.colors.text.secondary};
         text-decoration: none;
         font-weight: bold;
-        transition: color 360ms ease;
+        transition: color 350ms ease;
+        text-shadow: 0 0 6px rgba(255,255,255,0.3);
         
         &:hover {
             color: ${theme.colors.text.primary};
         }
+    }
+
+    @media (max-width: 1366px) {
+      padding-inline: 20px;
     }
 `
