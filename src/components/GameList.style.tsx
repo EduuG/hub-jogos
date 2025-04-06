@@ -7,7 +7,9 @@ export const GameListContainer = styled.div`
     position: relative;
 `;
 
-export const GameList = styled.ul<{ size: "small" | "medium" | "large", isMobile: boolean }>`
+export const GameList = styled.ul.withConfig({
+    shouldForwardProp: (prop) => prop !== "isMobile",
+})<{ size: "small" | "medium" | "large", isMobile: boolean }>`
     display: flex;
     overflow-x: auto;
     white-space: nowrap;

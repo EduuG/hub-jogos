@@ -52,7 +52,9 @@ export const FeaturedWrapper = styled.div`
     }
 `;
 
-export const FeaturedGameList = styled.ul<{ isMobile: boolean }>`
+export const FeaturedGameList = styled.ul.withConfig({
+    shouldForwardProp: (prop) => prop !== "isMobile",
+})<{ isMobile: boolean }>`
     display: flex;
     flex-direction: ${({ isMobile }) => isMobile ? "row" : "column"};
     overflow-x: ${({ isMobile }) => isMobile ? "scroll" : ""};
@@ -82,7 +84,9 @@ export const FeaturedGameList = styled.ul<{ isMobile: boolean }>`
     }
 `;
 
-export const StyledFeatured = styled.div<{ background: string, isMobile: boolean }>`
+export const StyledFeatured = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== "background" && prop !== "isMobile",
+})<{ background: string, isMobile: boolean }>`
     position: relative;
     width: 100%;
     height: 100vh;

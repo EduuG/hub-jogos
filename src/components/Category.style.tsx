@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { theme } from "../Theme.tsx";
 
-export const StyledCategory = styled.section<{ background: string }>`
+export const StyledCategory = styled.section.withConfig({
+    shouldForwardProp: (prop) => prop !== "background",
+})<{ background: string }>`
     position: relative;
     display: flex;
     flex-direction: column;

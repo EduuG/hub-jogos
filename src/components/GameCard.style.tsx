@@ -52,7 +52,9 @@ export const PlayButton = styled.button`
     }
 `;
 
-export const StyledGameCard = styled.li<{ cover: GameCoverModel, size: "medium" | "large" }>`
+export const StyledGameCard = styled.li.withConfig({
+    shouldForwardProp: (prop) => prop !== "cover",
+})<{ cover: GameCoverModel, size: "medium" | "large" }>`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
